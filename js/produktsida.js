@@ -1,3 +1,29 @@
+//Vet ej om nedanstående (configuration osv) behövs men lägger in det här sålänge ändå 
+
+// // Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
+
+// // Your web app's Firebase configuration
+// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBNLbI_zFYj7UNXXVMoVVQ_duuiJZD4ozM",
+//   authDomain: "js-miniprojekt3.firebaseapp.com",
+//   projectId: "js-miniprojekt3",
+//   storageBucket: "js-miniprojekt3.appspot.com",
+//   messagingSenderId: "798780073612",
+//   appId: "1:798780073612:web:b2effc2378e7c580aa3da9",
+//   measurementId: "G-8C98JL2JCX"
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+
+
+
 const baseUrl = `https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/`;
 
 async function getAllProducts() {
