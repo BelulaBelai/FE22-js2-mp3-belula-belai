@@ -22,7 +22,7 @@
 // const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 
-
+//Url:en till firebase databasen => https://console.firebase.google.com/u/1/project/js-miniprojekt3/database/js-miniprojekt3-default-rtdb/data/~2Fprodukter
 
 const baseUrl = `https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/`;
 
@@ -42,6 +42,9 @@ async function getAllProducts() {
         const productName = document.createElement('h3');
         const productPrice = document.createElement('p');
         const productAmount = document.createElement('p');
+        const addToCartBtn = document.createElement('button');
+        addToCartBtn.textContent = 'Add to cart';
+        addToCartBtn.classList.add('addToCartBtn')
 
 
         img.src = produkter[i].url;
@@ -50,7 +53,7 @@ async function getAllProducts() {
         productAmount.textContent = `Antal produkter kvar: ${produkter[i].saldo}`;
 
         let productContainer = document.querySelector('#product-container');
-        cards.append(img, productName, productPrice, productAmount);
+        cards.append(img, productName, productPrice, productAmount, addToCartBtn);
         productContainer.append(cards);
         cards.classList.add('cards');
         document.body.append(productContainer);
