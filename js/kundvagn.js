@@ -1,5 +1,12 @@
+
+const homeIcon = document.getElementById('homeIcon');
+homeIcon.addEventListener("click", goToProductPage);
+function goToProductPage() {
+  window.location.assign("../index.html");
+};
+
 const baseUrl =
-    "https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/";
+  "https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/";
 async function getAllProducts() {
   const url = `${baseUrl}produkter.json`;
   const response = await fetch(url);
@@ -76,18 +83,19 @@ async function deleteShoppingCart() {
 function createCardHtml(data) {
   return `
     <div>
+    
         <img src="${data.url}" alt="">
         <h3>${data.name}</h3>
-        <p>Styck Pris: ${data.price}</p>
+        <p>Styck pris: ${data.price}</p>
         <p>Saldo: ${data.balance}</p>
         <p>Antal: ${data.amount}</p>
-        <h3>Totala Pris: ${data.totalPrice} </h3>
+        <h3>Totala pris: ${data.totalPrice} </h3>
     </div>
     `;
 }
 
 async function main() {
-  const cardsElement = document.getElementById("cards");
+  const cardsElement = document.getElementById("cartCards");
   const allItems = await getAllItems();
   console.log(Array.isArray(allItems));
 
@@ -100,12 +108,12 @@ async function main() {
   const totalPriceElement = document.getElementById("price");
   totalPriceElement.innerText = await totalPrice();
 
-  const removeElement = document.getElementById("remove");
+  const removeElement = document.getElementById("removeItemsBtn");
   removeElement.addEventListener("click", async () => {
     await deleteShoppingCart();
   });
 
-  const buyElement = document.getElementById("buy");
+  const buyElement = document.getElementById("buyItemsBtn");
   buyElement.addEventListener("click", async () => {
     await updateBalance();
   });

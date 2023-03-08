@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="../js/kundvagn.js" defer></script>
+    <link rel="stylesheet" href="../css/style.css" />
     <title>Document</title>
-</head>
-<body>
-    <div>
-        <h1>Dina varor</h1>
-        <div id="cards">
-            
-        </div>
-        <div>
-            <h4>
-                Totalt
-            </h4>
-            <p>
-                antal <span id="amount"></span>
-            </p>
-            <p>
-                pris <span id="price"> </span>
-            </p>
-        </div>
+  </head>
+  <body>
+    <header>
+      <h1>SneakerStore</h1>
+      <img id="homeIcon" src="/images/home.png" />
+    </header>
+    <div id="cartContainer">
+      <h1>Dina varor</h1>
+      <div id="alignCardInfo">
+        <div id="cartImg"></div>
+        <div id="cartCards"></div>
+      </div>
+      <div>
+        <h4 id="totalPrice">Totalt</h4>
+        <p>antal <span id="amount"></span></p>
+        <p>pris <span id="price"> </span></p>
+      </div>
 
-        <div>
-            <button id="remove">
-                Ta bort kundvagn
-            </button>
-            <button id="buy">
-                Köp
-            </button>
-        </div>
+      <div class="cartBtnsContainer">
+        <button class="cartBtns" id="buyItemsBtn">Köp</button>
+        <button class="cartBtns" id="removeItemsBtn">Rensa kundvagnen</button>
+      </div>
     </div>
-</body>
+    <!-- <footer></footer> -->
+  </body>
 </html>

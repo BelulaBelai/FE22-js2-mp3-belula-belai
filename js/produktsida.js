@@ -29,7 +29,7 @@
 const cartIcon = document.getElementById('cartIcon');
 cartIcon.addEventListener("click", goToCart);
 function goToCart() {
-    window.location.assign("http://127.0.0.1:5500/html/kundvagn.html")
+    window.location.assign("../html/kundvagn.html")
 };
 
 async function getAllProducts() {
@@ -53,7 +53,7 @@ async function getAllProducts() {
         const amountInput = document.createElement('input');
         amountInput.type = 'number';
         amountInput.min = 1;
-        amountInput.placeholder = 'Amount';
+        amountInput.placeholder = 'Select amount...';
         let amount = 0;
         amountInput.addEventListener('change', (event) => {
             amount = amountInput.value;
@@ -88,7 +88,7 @@ async function getAllProducts() {
         productAmount.textContent = `Lager status: ${produkter[i].saldo}st`;
 
         let productContainer = document.querySelector('#product-container');
-        cards.append(img, productName, productPrice, productAmount, addToCartBtn, amountInput);
+        cards.append(img, productName, productPrice, productAmount, amountInput, addToCartBtn);
         productContainer.append(cards);
         cards.classList.add('cards');
         document.body.append(productContainer);
