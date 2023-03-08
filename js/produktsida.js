@@ -25,6 +25,13 @@
 //Url:en till firebase databasen => https://console.firebase.google.com/u/1/project/js-miniprojekt3/database/js-miniprojekt3-default-rtdb/data/~2Fprodukter
 
 
+
+const cartIcon = document.getElementById('cartIcon');
+cartIcon.addEventListener("click", goToCart);
+function goToCart() {
+    window.location.assign("http://127.0.0.1:5500/html/kundvagn.html")
+};
+
 async function getAllProducts() {
     const baseUrl = "https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/";
     const url = `${baseUrl}produkter.json`;
