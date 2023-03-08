@@ -24,11 +24,10 @@
 
 //Url:en till firebase databasen => https://console.firebase.google.com/u/1/project/js-miniprojekt3/database/js-miniprojekt3-default-rtdb/data/~2Fprodukter
 
-const baseUrl = `https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/`;
 
 async function getAllProducts() {
 
-    const url = baseUrl + 'produkter.json';
+    const url = `https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/produkter.json`;
     const response = await fetch(url);
     const data = await response.json();
     console.log(data);
