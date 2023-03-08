@@ -49,7 +49,7 @@ async function getAllProducts() {
         img.src = produkter[i].url;
         productName.textContent = produkter[i].namn;
         productPrice.textContent = produkter[i].pris + 'kr';
-        productAmount.textContent = `Antal produkter kvar: ${produkter[i].saldo}`;
+        productAmount.textContent = `Lager status: ${produkter[i].saldo}st`;
 
         let productContainer = document.querySelector('#product-container');
         cards.append(img, productName, productPrice, productAmount, addToCartBtn);
