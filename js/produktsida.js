@@ -26,7 +26,7 @@
 
 
 async function getAllProducts() {
-    const baseUrl = "https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/"; 
+    const baseUrl = "https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/";
     const url = `${baseUrl}produkter.json`;
     const response = await fetch(url);
     const data = await response.json();
@@ -42,20 +42,20 @@ async function getAllProducts() {
         const productPrice = document.createElement('p');
         const productAmount = document.createElement('p');
         const addToCartBtn = document.createElement('button');
-       
+
         const amountInput = document.createElement('input');
         amountInput.type = 'number';
         amountInput.min = 1;
         amountInput.placeholder = 'Amount';
         let amount = 0;
-        amountInput.addEventListener('change', (event)=>{
+        amountInput.addEventListener('change', (event) => {
             amount = amountInput.value;
         })
 
         addToCartBtn.textContent = 'Add to cart';
         addToCartBtn.classList.add('addToCartBtn');
 
-        addToCartBtn.addEventListener('click', async ()=>{
+        addToCartBtn.addEventListener('click', async () => {
             const url = `${baseUrl}shoppingcart.json`;
             const response = await fetch(url, {
                 method: "POST",
@@ -66,7 +66,7 @@ async function getAllProducts() {
                     image: data.url,
                     balance: data.saldo,
                 }),
-                headers:{
+                headers: {
                     "Content-Type": "application/json;charset=UTF-8"
                 }
             })
@@ -74,7 +74,7 @@ async function getAllProducts() {
         })
 
 
-    
+
         img.src = produkter[i].url;
         productName.textContent = produkter[i].namn;
         productPrice.textContent = produkter[i].pris + 'kr';
