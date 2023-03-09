@@ -59,7 +59,7 @@ async function getAllProducts() {
             amount = amountInput.value;
         })
 
-        addToCartBtn.textContent = 'Add to cart';
+        addToCartBtn.textContent = 'Lägg till i kundvagnen';
         addToCartBtn.classList.add('addToCartBtn');
 
 
@@ -78,13 +78,34 @@ async function getAllProducts() {
                 headers: {
                     "Content-Type": "application/json;charset=UTF-8"
                 }
+
             })
-            await response.json();
-            
-    
+            await response.json()
+
+            if (produkter[i].saldo === 0) {
+                addToCartBtn.disabled = true
+                addToCartBtn.textContent = 'Slutsåld!';
+                addToCartBtn.style.backgroundColor = 'red';
+                const url = `${baseUrl}shoppingcart.json`;
+                const response = await fetch(url, {
+                    method: "DELETE",
+                    body: JSON.stringify({
+                        name: produkter[i].namn,
+                        amount: amount,
+                        price: produkter[i].pris,
+                        totalPrice: produkter[i].pris * amount,
+                        image: produkter[i].url,
+                        balance: produkter[i].saldo,
+                    }),
+                    headers: {
+                        "Content-Type": "application/json;charset=UTF-8"
+                    }
+                })
+
+                await response.json()
+            }
+            else { alert("Varan är tillagd i kundvagnen") };
         })
-
-
 
         img.src = produkter[i].url;
         productName.textContent = produkter[i].namn;
