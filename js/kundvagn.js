@@ -128,6 +128,7 @@ async function main() {
     cardsElement.innerHTML = "";
     amountElement.innerText = 0;
     totalPriceElement.innerText = 0;
+    deleteShoppingCart();
   });
 }
 main();
