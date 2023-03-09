@@ -92,10 +92,10 @@ function createCardHtml(data) {
     <div>
         <img src="${data.url}" alt="">
         <h3>${data.name}</h3>
-        <p>Styck Pris: ${data.price}</p>
+        <p>Styck pris: ${data.price}</p>
         <p>Saldo: ${data.balance}</p>
         <p>Antal: ${data.amount}</p>
-        <p>Totala Pris: ${data.totalPrice} </p>
+        <p>Totala pris: ${data.totalPrice} </p>
     </div>
     `;
 }
@@ -124,7 +124,7 @@ async function main() {
   const buyElement = document.getElementById("buyItemsBtn");
   buyElement.addEventListener("click", async () => {
     await updateBalance();
-    alert("Tack! DITT KÖP ÄR GENOMFÖRT");
+    alert("TACK! DITT KÖP ÄR GENOMFÖRT");
     cardsElement.innerHTML = "";
     amountElement.innerText = 0;
     totalPriceElement.innerText = 0;
