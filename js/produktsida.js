@@ -67,11 +67,11 @@ async function getAllProducts() {
             const response = await fetch(url, {
                 method: "POST",
                 body: JSON.stringify({
-                    name: data.namn,
+                    name: produkter[i].namn,
                     amount: amount,
-                    totalPrice: data.pris * amount,
-                    image: data.url,
-                    balance: data.saldo,
+                    totalPrice: produkter[i].pris * amount,
+                    image: produkter[i].url,
+                    balance: produkter[i].saldo,
                 }),
                 headers: {
                     "Content-Type": "application/json;charset=UTF-8"
