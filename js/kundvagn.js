@@ -1,8 +1,7 @@
-
-const cartIcon = document.getElementById('cartIcon');
-cartIcon.addEventListener("click", goToCart);
-function goToCart() {
-  window.location.assign("../html/kundvagn.html")
+const homeIcon = document.getElementById('homeIcon');
+homeIcon.addEventListener("click", goToProductPage);
+function goToProductPage() {
+  window.location.assign("../index.html");
 };
 
 const baseUrl =
