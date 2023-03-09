@@ -69,6 +69,7 @@ async function getAllProducts() {
                 body: JSON.stringify({
                     name: produkter[i].namn,
                     amount: amount,
+                    price: produkter[i].pris,
                     totalPrice: produkter[i].pris * amount,
                     image: produkter[i].url,
                     balance: produkter[i].saldo,
