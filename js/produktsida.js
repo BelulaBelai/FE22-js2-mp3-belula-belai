@@ -104,7 +104,29 @@ async function getAllProducts() {
 
                 await response.json()
             }
-            else { alert("Varan är tillagd i kundvagnen") };
+            else if (amount === 0) {
+                alert("Välj antal varor");
+                const url = `${baseUrl}shoppingcart.json`;
+                const response = await fetch(url, {
+                    method: "DELETE",
+                    body: JSON.stringify({
+                        name: produkter[i].namn,
+                        amount: amount,
+                        price: produkter[i].pris,
+                        totalPrice: produkter[i].pris * amount,
+                        image: produkter[i].url,
+                        balance: produkter[i].saldo,
+                    }),
+                    headers: {
+                        "Content-Type": "application/json;charset=UTF-8"
+                    }
+                })
+
+                await response.json()
+            }
+            else {
+                alert("Varan är tillagd i kundvagnen")
+            };
         })
 
         img.src = produkter[i].url;
