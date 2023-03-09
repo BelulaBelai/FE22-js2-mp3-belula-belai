@@ -32,8 +32,8 @@ function goToCart() {
     window.location.assign("../html/kundvagn.html")
 };
 
-async function getAllProducts() {
-    const baseUrl = "https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/";
+async function getAllProducts(){
+    const baseUrl = "https://js2-mp3-f90a0-default-rtdb.europe-west1.firebasedatabase.app/"; 
     const url = `${baseUrl}produkter.json`;
     const response = await fetch(url);
     const data = await response.json();
@@ -55,7 +55,7 @@ async function getAllProducts() {
         amountInput.min = 1;
         amountInput.placeholder = 'Select amount...';
         let amount = 0;
-        amountInput.addEventListener('change', (event) => {
+        amountInput.addEventListener('change', ()=>{
             amount = amountInput.value;
         })
 
@@ -67,11 +67,12 @@ async function getAllProducts() {
             const response = await fetch(url, {
                 method: "POST",
                 body: JSON.stringify({
-                    name: data.namn,
+                    name: produkter[i].namn,
                     amount: amount,
-                    totalPrice: data.pris * amount,
-                    image: data.url,
-                    balance: data.saldo,
+                    price: produkter[i].pris,
+                    totalPrice: produkter[i].pris * amount,
+                    image: produkter[i].url,
+                    balance: produkter[i].saldo,
                 }),
                 headers: {
                     "Content-Type": "application/json;charset=UTF-8"

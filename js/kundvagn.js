@@ -1,17 +1,13 @@
-
-const homeIcon = document.getElementById('homeIcon');
-homeIcon.addEventListener("click", goToProductPage);
-function goToProductPage() {
-  window.location.assign("../index.html");
-};
-
 const baseUrl =
-  "https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/";
+  "https://js2-mp3-f90a0-default-rtdb.europe-west1.firebasedatabase.app/";
 async function getAllProducts() {
   const url = `${baseUrl}produkter.json`;
   const response = await fetch(url);
   const data = await response.json();
-  return data;
+  if (data) {
+    return Object.values(data);
+  }
+  return [];
 }
 
 //Funktion för att hämta (Alla produkt) från produktsida
@@ -33,33 +29,37 @@ async function itemAmount() {
 //Funktion som plussa ihop alla produkter från kundvagnen för att få det totala priset
 async function totalPrice() {
   const shoppingCartItems = await getAllItems();
-  const products = await getAllProducts();
   let totalPrice = 0;
   for (let i = 0; i < shoppingCartItems.length; i++) {
     const shoppingCartItem = shoppingCartItems[i];
-    for (let j = 0; j < products.length; j++) {
-      const product = products[j];
-      if (product.namn === shoppingCartItem.name) {
-        totalPrice += product.pris * shoppingCartItem.amount;
-      }
-    }
-    totalPrice += shoppingCartItem.price;
+    totalPrice += shoppingCartItem.totalPrice;
   }
   return totalPrice;
 }
 
 async function updateProductBalance(name, amount) {
-  const products = await getAllProducts();
-  products.map((product) => {
-    if (product.namn === name) {
-      return {
-        namn: product.namn,
-        pris: product.pris,
-        saldo: product.saldo - amount,
-        url: product.url,
-      };
-    }
-    return product;
+  const url = `${baseUrl}produkter.json`;
+  const response = await fetch(url);
+  const data = await response.json();
+  const update = Object.fromEntries(
+    Object.entries(data).map(([key, product]) => {
+      if (product.namn === name) {
+        return [
+          key,
+          {
+            namn: product.namn,
+            pris: product.pris,
+            saldo: product.saldo - amount,
+            url: product.url,
+          },
+        ];
+      }
+      return [key, product];
+    })
+  );
+  await fetch(url, {
+    method: "PATCH",
+    body: JSON.stringify(update),
   });
 }
 
@@ -83,21 +83,19 @@ async function deleteShoppingCart() {
 function createCardHtml(data) {
   return `
     <div>
-    
         <img src="${data.url}" alt="">
         <h3>${data.name}</h3>
-        <p>Styck pris: ${data.price}</p>
+        <p>Styck Pris: ${data.price}</p>
         <p>Saldo: ${data.balance}</p>
         <p>Antal: ${data.amount}</p>
-        <h3>Totala pris: ${data.totalPrice} </h3>
+        <p>Totala Pris: ${data.totalPrice} </p>
     </div>
     `;
 }
 
 async function main() {
-  const cardsElement = document.getElementById("cartCards");
+  const cardsElement = document.getElementById("cards");
   const allItems = await getAllItems();
-  console.log(Array.isArray(allItems));
 
   const cardsHtml = allItems.map(createCardHtml).join("<br>");
   cardsElement.innerHTML = cardsHtml;
@@ -108,14 +106,21 @@ async function main() {
   const totalPriceElement = document.getElementById("price");
   totalPriceElement.innerText = await totalPrice();
 
-  const removeElement = document.getElementById("removeItemsBtn");
+  const removeElement = document.getElementById("remove");
   removeElement.addEventListener("click", async () => {
     await deleteShoppingCart();
+    cardsElement.innerHTML = "";
+    amountElement.innerText = 0;
+    totalPriceElement.innerText = 0;
   });
 
-  const buyElement = document.getElementById("buyItemsBtn");
+  const buyElement = document.getElementById("buy");
   buyElement.addEventListener("click", async () => {
     await updateBalance();
+    alert("Tack! DITT KÖP ÄR GENOMFÖRT");
+    cardsElement.innerHTML = "";
+    amountElement.innerText = 0;
+    totalPriceElement.innerText = 0;
   });
 }
 main();
