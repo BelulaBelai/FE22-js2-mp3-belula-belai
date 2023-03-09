@@ -1,5 +1,12 @@
+
+const cartIcon = document.getElementById('cartIcon');
+cartIcon.addEventListener("click", goToCart);
+function goToCart() {
+  window.location.assign("../html/kundvagn.html")
+};
+
 const baseUrl =
-  "https://js2-mp3-f90a0-default-rtdb.europe-west1.firebasedatabase.app/";
+  `https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/`;
 async function getAllProducts() {
   const url = `${baseUrl}produkter.json`;
   const response = await fetch(url);
@@ -94,7 +101,7 @@ function createCardHtml(data) {
 }
 
 async function main() {
-  const cardsElement = document.getElementById("cards");
+  const cardsElement = document.getElementById("cartCards");
   const allItems = await getAllItems();
 
   const cardsHtml = allItems.map(createCardHtml).join("<br>");
@@ -106,7 +113,7 @@ async function main() {
   const totalPriceElement = document.getElementById("price");
   totalPriceElement.innerText = await totalPrice();
 
-  const removeElement = document.getElementById("remove");
+  const removeElement = document.getElementById("removeItemsBtn");
   removeElement.addEventListener("click", async () => {
     await deleteShoppingCart();
     cardsElement.innerHTML = "";
@@ -114,7 +121,7 @@ async function main() {
     totalPriceElement.innerText = 0;
   });
 
-  const buyElement = document.getElementById("buy");
+  const buyElement = document.getElementById("buyItemsBtn");
   buyElement.addEventListener("click", async () => {
     await updateBalance();
     alert("Tack! DITT KÖP ÄR GENOMFÖRT");
