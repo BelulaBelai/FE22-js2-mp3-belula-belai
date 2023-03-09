@@ -90,6 +90,7 @@ async function deleteShoppingCart() {
 function createCardHtml(data) {
   return `
     <div>
+    
         <img src="${data.image}" alt="">
         <h3>${data.name}</h3>
         <p>Styck pris: ${data.price}</p>
