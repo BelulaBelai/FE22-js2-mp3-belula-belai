@@ -62,6 +62,7 @@ async function getAllProducts() {
         addToCartBtn.textContent = 'Add to cart';
         addToCartBtn.classList.add('addToCartBtn');
 
+
         addToCartBtn.addEventListener('click', async () => {
             const url = `${baseUrl}shoppingcart.json`;
             const response = await fetch(url, {
@@ -78,7 +79,9 @@ async function getAllProducts() {
                     "Content-Type": "application/json;charset=UTF-8"
                 }
             })
-            await response.json()
+            await response.json();
+            
+    
         })
 
 
