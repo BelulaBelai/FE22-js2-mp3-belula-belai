@@ -90,10 +90,10 @@ async function deleteShoppingCart() {
 function createCardHtml(data) {
   return `
     <div>
-        <img src="${data.url}" alt="">
+        <img src="${data.image}" alt="">
         <h3>${data.name}</h3>
         <p>Styck pris: ${data.price}</p>
-        <p>Saldo: ${data.balance}</p>
+        <p>Lager status: ${data.balance}</p>
         <p>Antal: ${data.amount}</p>
         <p>Totala pris: ${data.totalPrice} </p>
     </div>
