@@ -1,0 +1,15 @@
+{
+  "name": "fe22-js2-mp3-belula-belai",
+  "version": "1.0.0",
+  "description": "miniprojekt 3 - store",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "animejs": "^3.2.1"
+  }
+}

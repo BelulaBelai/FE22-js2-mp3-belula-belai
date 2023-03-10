@@ -1,4 +1,5 @@
 import { itemAmount } from "./cartItems.js";
+import anime from "../node_modules/animejs/lib/anime.es.js";
 //Vet ej om nedanstående (configuration osv) behövs men lägger in det här sålänge ändå
 
 // // Import the functions you need from the SDKs you need
@@ -136,3 +137,11 @@ function changeAddToCartBtn(addToCartBtn, isBalanceEmpty) {
         addToCartBtn.classList.remove("empty-button");
     }
 }
+
+anime({
+    targets: '#header',
+    opacity: 0.8,
+    loop: true,
+    duration: 2000
+
+});
