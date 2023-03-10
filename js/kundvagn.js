@@ -1,3 +1,4 @@
+import { itemAmount, getAllItems } from "./abra.js"
 
 const homeIcon = document.getElementById('homeIcon');
 homeIcon.addEventListener("click", goToProductPage);
@@ -15,22 +16,6 @@ async function getAllProducts() {
     return Object.values(data);
   }
   return [];
-}
-
-//Funktion för att hämta (Alla produkt) från produktsida
-async function getAllItems() {
-  const url = `${baseUrl}shoppingcart.json`;
-  const response = await fetch(url);
-  const json = await response.json();
-  if (json) {
-    return Object.values(json);
-  }
-  return [];
-}
-
-//Funktion för att hämta (Antal) från produktsida
-async function itemAmount() {
-  return (await getAllItems()).length;
 }
 
 //Funktion som plussa ihop alla produkter från kundvagnen för att få det totala priset

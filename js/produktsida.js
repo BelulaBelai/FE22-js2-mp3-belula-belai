@@ -1,3 +1,4 @@
+import { itemAmount } from "./abra.js";
 //Vet ej om nedanstående (configuration osv) behövs men lägger in det här sålänge ändå
 
 // // Import the functions you need from the SDKs you need
@@ -31,6 +32,12 @@ function goToCart() {
   window.location.assign("../html/kundvagn.html");
 }
 
+async function setShoppingCartItemAmount() {
+  const amount = await itemAmount()
+  const kundvagnen = document.getElementById('kundvagnen');
+  kundvagnen.innerText = amount;
+
+}
 async function getAllProducts() {
   const baseUrl = `https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/`;
   const url = `${baseUrl}produkter.json`;
@@ -40,7 +47,7 @@ async function getAllProducts() {
 
   let produkter = Object.values(data);
   console.log(produkter);
-
+  setShoppingCartItemAmount()
   for (let i = 0; i < produkter.length; i++) {
     const cards = document.createElement("div");
     const img = document.createElement("img");
@@ -64,8 +71,8 @@ async function getAllProducts() {
 
     addToCartBtn.addEventListener("click", async () => {
       let isAmountEmpty = amount === 0;
-      console.log("saldo:", produkter[i].saldo)
-      const isValidBalance = amount <= produkter[i].saldo
+      console.log("saldo:", produkter[i].saldo);
+      const isValidBalance = amount <= produkter[i].saldo;
       if (!isBalanceEmpty && !isAmountEmpty && isValidBalance) {
         const url = `${baseUrl}shoppingcart.json`;
         const response = await fetch(url, {
@@ -89,11 +96,9 @@ async function getAllProducts() {
 
       if (isAmountEmpty) {
         alert("Välj antal");
-      } 
-      else if (!isValidBalance) {
+      } else if (!isValidBalance) {
         alert("Det finns inte tillräckligt många varor i lager");
-      }
-      else {
+      } else {
         alert("Varan har lagts till i kundvagnen");
       }
     });
