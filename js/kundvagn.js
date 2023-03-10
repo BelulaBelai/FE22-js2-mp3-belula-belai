@@ -1,4 +1,4 @@
-import { itemAmount, getAllItems } from "./abra.js"
+import { itemAmount, getAllItems } from "./cartItems.js"
 
 const homeIcon = document.getElementById('homeIcon');
 homeIcon.addEventListener("click", goToProductPage);
