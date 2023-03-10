@@ -1,4 +1,4 @@
-//Vet ej om nedanstående (configuration osv) behövs men lägger in det här sålänge ändå 
+//Vet ej om nedanstående (configuration osv) behövs men lägger in det här sålänge ändå
 
 // // Import the functions you need from the SDKs you need
 // import { initializeApp } from "firebase/app";
@@ -24,122 +24,103 @@
 
 //Url:en till firebase databasen => https://console.firebase.google.com/u/1/project/js-miniprojekt3/database/js-miniprojekt3-default-rtdb/data/~2Fprodukter
 
-
-
-const cartIcon = document.getElementById('cartIcon');
+const initialText = "Lägg till i kundvagnen";
+const cartIcon = document.getElementById("cartIcon");
 cartIcon.addEventListener("click", goToCart);
 function goToCart() {
-    window.location.assign("../html/kundvagn.html")
-};
+  window.location.assign("../html/kundvagn.html");
+}
 
 async function getAllProducts() {
-    const baseUrl = `https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/`;
-    const url = `${baseUrl}produkter.json`;
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data);
+  const baseUrl = `https://js-miniprojekt3-default-rtdb.europe-west1.firebasedatabase.app/`;
+  const url = `${baseUrl}produkter.json`;
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log(data);
 
-    let produkter = Object.values(data);
-    console.log(produkter);
+  let produkter = Object.values(data);
+  console.log(produkter);
 
-    for (let i = 0; i <= produkter.length; i++) {
-        const cards = document.createElement('div');
-        const img = document.createElement('img');
-        const productName = document.createElement('h3');
-        const productPrice = document.createElement('p');
-        const productAmount = document.createElement('p');
-        const addToCartBtn = document.createElement('button');
+  for (let i = 0; i <= produkter.length; i++) {
+    const cards = document.createElement("div");
+    const img = document.createElement("img");
+    const productName = document.createElement("h3");
+    const productPrice = document.createElement("p");
+    const productAmount = document.createElement("p");
+    const addToCartBtn = document.createElement("button");
 
-        const amountInput = document.createElement('input');
-        amountInput.type = 'number';
-        amountInput.min = 1;
-        amountInput.placeholder = 'Select amount...';
-        let amount = 0;
-        amountInput.addEventListener('change', () => {
-            amount = amountInput.value;
-        })
+    const amountInput = document.createElement("input");
+    amountInput.type = "number";
+    amountInput.min = 1;
+    amountInput.placeholder = "Select amount...";
+    let amount = 0;
+    amountInput.addEventListener("change", () => {
+      amount = amountInput.value;
+    });
+    addToCartBtn.textContent = initialText;
+    addToCartBtn.classList.add("addToCartBtn");
+    const isBalanceEmpty = produkter[i].saldo === 0;
+    changeAddToCartBtn(addToCartBtn, isBalanceEmpty);
 
-       
+    addToCartBtn.addEventListener("click", async () => {
+      let isAmountEmpty = amount === 0;
+      if (!isBalanceEmpty && !isAmountEmpty) {
+        const url = `${baseUrl}shoppingcart.json`;
+        const response = await fetch(url, {
+          method: "POST",
+          body: JSON.stringify({
+            name: produkter[i].namn,
+            amount: amount,
+            price: produkter[i].pris,
+            totalPrice: produkter[i].pris * amount,
+            image: produkter[i].url,
+            balance: produkter[i].saldo,
+          }),
+          headers: {
+            "Content-Type": "application/json;charset=UTF-8",
+          },
+        });
+        await response.json();
+      }
 
-        addToCartBtn.textContent = 'Lägg till i kundvagnen';
-        addToCartBtn.classList.add('addToCartBtn');
+      changeAddToCartBtn(addToCartBtn, isBalanceEmpty);
 
+      if (isAmountEmpty) {
+        alert("Välj antal");
+      }else {
+        alert("Varan har lagts till i kundvagnen")
+      }
+    });
 
-        addToCartBtn.addEventListener('click', async () => {
-            const url = `${baseUrl}shoppingcart.json`;
-            const response = await fetch(url, {
-                method: "POST",
-                body: JSON.stringify({
-                    name: produkter[i].namn,
-                    amount: amount,
-                    price: produkter[i].pris,
-                    totalPrice: produkter[i].pris * amount,
-                    image: produkter[i].url,
-                    balance: produkter[i].saldo,
-                }),
-                headers: {
-                    "Content-Type": "application/json;charset=UTF-8"
-                }
+    img.src = produkter[i].url;
+    productName.textContent = produkter[i].namn;
+    productPrice.textContent = produkter[i].pris + "kr";
+    productAmount.textContent = `Lager status: ${produkter[i].saldo}st`;
 
-            })
-            await response.json()
-
-            
-            
-                if (produkter[i].saldo === 0) {
-                addToCartBtn.disabled = true
-                addToCartBtn.textContent = 'Slutsåld!';
-                addToCartBtn.style.backgroundColor = 'red';
-                const url = `${baseUrl}shoppingcart.json`;
-                const response = await fetch(url, {
-                    method: "DELETE",
-                    body: JSON.stringify({
-                        name: produkter[i].namn,
-                        amount: amount,
-                        price: produkter[i].pris,
-                        totalPrice: produkter[i].pris * amount,
-                        image: produkter[i].url,
-                        balance: produkter[i].saldo,
-                    }),
-                    headers: {
-                        "Content-Type": "application/json;charset=UTF-8"
-                    }
-                })
-
-                await response.json()
-            }else if (amount < 1){
-                addToCartBtn.disabled = true;
-                alert('Välj antal');
-                const response = await fetch(url, {
-                    method: "DELETE",
-                    body: JSON.stringify({
-                        name: produkter[i].namn,
-                        amount: amount,
-                        price: produkter[i].pris,
-                        totalPrice: produkter[i].pris * amount,
-                        image: produkter[i].url,
-                        balance: produkter[i].saldo,
-                    }),
-                    headers: {
-                        "Content-Type": "application/json;charset=UTF-8"
-                    }
-                })
-            }else { alert("Varan är tillagd i kundvagnen") };
-
-            
-        })
-
-        img.src = produkter[i].url;
-        productName.textContent = produkter[i].namn;
-        productPrice.textContent = produkter[i].pris + 'kr';
-        productAmount.textContent = `Lager status: ${produkter[i].saldo}st`;
-
-        let productContainer = document.querySelector('#product-container');
-        cards.append(img, productName, productPrice, productAmount, amountInput, addToCartBtn);
-        productContainer.append(cards);
-        cards.classList.add('cards');
-        document.body.append(productContainer);
-    }
-};
+    let productContainer = document.querySelector("#product-container");
+    cards.append(
+      img,
+      productName,
+      productPrice,
+      productAmount,
+      amountInput,
+      addToCartBtn
+    );
+    productContainer.append(cards);
+    cards.classList.add("cards");
+    document.body.append(productContainer);
+  }
+}
 
 getAllProducts();
+
+function changeAddToCartBtn(addToCartBtn, isBalanceEmpty) {
+  addToCartBtn.disabled = isBalanceEmpty;
+  if (isBalanceEmpty) {
+    addToCartBtn.classList.add("empty-button");
+    addToCartBtn.innerText = "Slutsåld";
+  } else {
+    addToCartBtn.innerText = initialText;
+    addToCartBtn.classList.remove("empty-button");
+  }
+}

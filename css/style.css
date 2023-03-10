@@ -54,7 +54,7 @@ img {
   align-self: center;
 }
 
-.addToCartBtn {
+.addToCartBtn{
   width: 50%;
   margin-top: 1rem;
   background-color: black;
@@ -126,4 +126,14 @@ footer {
 }
 #removeItemsBtn {
   background-color: rgb(223, 13, 13);
+}
+
+.empty-button {
+background-color: red;
+width: 50%;
+margin-top: 1rem;
+color: white;
+padding: 0.5rem;
+border-radius: 8px;
+
 }
