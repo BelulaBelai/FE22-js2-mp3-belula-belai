@@ -141,7 +141,8 @@ function changeAddToCartBtn(addToCartBtn, isBalanceEmpty) {
 anime({
     targets: '#header',
     opacity: 0.8,
+    scale: 1.1,
     loop: true,
-    duration: 2000
+    duration: 4000
 
 });
