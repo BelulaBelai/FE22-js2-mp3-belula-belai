@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="../js/kundvagn.js" defer></script>
     <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
     <title>Document</title>
   </head>
   <body>
@@ -17,17 +21,19 @@
       <h1>Dina varor</h1>
       <div id="alignCardInfo">
         <div id="cartImg"></div>
-        <div id="cartCards"></div>
+        <div
+          id="cartCards"
+          class="flex justify-content-center align-items-center"
+        ></div>
       </div>
-      <div>
+      <div class="card-container m-auto text-center">
         <h4 id="totalPrice">Totalt</h4>
         <p>Antal typ av valda produkter: <span id="amount"></span></p>
         <p>Totala pris: <span id="price"> </span></p>
-      </div>
-
-      <div class="cartBtnsContainer">
-        <button class="cartBtns" id="buyItemsBtn">Köp</button>
-        <button class="cartBtns" id="removeItemsBtn">Rensa kundvagnen</button>
+        <div class="d-flex gap-2">
+          <button class="cartBtns d-block w-50" id="buyItemsBtn">Köp</button>
+          <button class="cartBtns d-block w-50" id="removeItemsBtn">Rensa kundvagnen</button>
+        </div>
       </div>
     </div>
     <!-- <footer></footer> -->

@@ -74,14 +74,21 @@ async function deleteShoppingCart() {
 
 function createCardHtml(data) {
   return `
-    <div>
-    
-        <img src="${data.image}" alt="">
-        <h3>${data.name}</h3>
-        <p>Styck pris: ${data.price}</p>
-        <p>Lager status: ${data.balance}</p>
-        <p>Antal: ${data.amount}</p>
-        <p>Totala pris: ${data.totalPrice} </p>
+    <div class="card mb-3 card-container" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${data.image}" class="img-fluid rounded-start">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body ml-auto">
+            <h5 class="card-title">${data.name}</h5>
+            <div>Styck pris: ${data.price}</div>
+            <div>Lager status: ${data.balance}</div>
+            <div>Antal: ${data.amount}</div>
+            <div>Totala pris: ${data.totalPrice} </div>
+          </div>
+        </div>
+      </div>
     </div>
     `;
 }
