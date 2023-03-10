@@ -41,7 +41,7 @@ async function getAllProducts() {
   let produkter = Object.values(data);
   console.log(produkter);
 
-  for (let i = 0; i <= produkter.length; i++) {
+  for (let i = 0; i < produkter.length; i++) {
     const cards = document.createElement("div");
     const img = document.createElement("img");
     const productName = document.createElement("h3");
@@ -64,7 +64,9 @@ async function getAllProducts() {
 
     addToCartBtn.addEventListener("click", async () => {
       let isAmountEmpty = amount === 0;
-      if (!isBalanceEmpty && !isAmountEmpty) {
+      console.log("saldo:", produkter[i].saldo)
+      const isValidBalance = amount <= produkter[i].saldo
+      if (!isBalanceEmpty && !isAmountEmpty && isValidBalance) {
         const url = `${baseUrl}shoppingcart.json`;
         const response = await fetch(url, {
           method: "POST",
@@ -87,8 +89,12 @@ async function getAllProducts() {
 
       if (isAmountEmpty) {
         alert("Välj antal");
-      }else {
-        alert("Varan har lagts till i kundvagnen")
+      } 
+      else if (!isValidBalance) {
+        alert("Det finns inte tillräckligt många varor i lager");
+      }
+      else {
+        alert("Varan har lagts till i kundvagnen");
       }
     });
 
